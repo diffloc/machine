@@ -4,8 +4,13 @@ import java.util.Scanner;
 
 public class CoffeeMachine {
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
+        howMuchIngredients(scanner);
+
+
+    }
+
+    public static void howMuchIngredients(Scanner scanner) {
         // Ingredients per cup:
         int water = 200; // milliliters
         int milk = 50; // milliliters
@@ -18,6 +23,5 @@ public class CoffeeMachine {
         System.out.println((water * numCups) + " ml of water");
         System.out.println((milk * numCups) + " ml of milk");
         System.out.println((coffeeBeans * numCups) + " g of coffee beans");
-
     }
 }
