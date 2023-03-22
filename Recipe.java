@@ -22,6 +22,9 @@ public class Recipe {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public int getWater() {
         return water;
