@@ -2,12 +2,12 @@ package machine;
 
 public class Recipe {
 
-    private int id;
-    private String name;
-    private int water;
-    private int milk;
-    private int beans;
-    private int cost;
+    private final int id;
+    private final String name;
+    private final int water;
+    private final int milk;
+    private final int beans;
+    private final int cost;
 
     public Recipe(int id, String name, int water, int milk, int beans, int cost) {
         this.id = id;
@@ -22,9 +22,6 @@ public class Recipe {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public int getWater() {
         return water;

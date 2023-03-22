@@ -1,7 +1,6 @@
 package machine;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Machine {
 
@@ -30,26 +29,6 @@ public class Machine {
         recipes.add(new Recipe(3, "cappuccino", 200, 100, 12, 6));
     }
 
-    public int getWater() {
-        return this.waterSupply;
-    }
-
-    public int getMilk() {
-        return this.milkSupply;
-    }
-
-    public int getBeans() {
-        return this.beanSupply;
-    }
-
-    public int getCups() {
-        return this.cupSupply;
-    }
-
-    public int getMoney() {
-        return this.moneyBalance;
-    }
-
     public void status() {
         System.out.println("\nThe coffee machine has:");
         System.out.printf("%d of water\n", waterSupply);
@@ -59,12 +38,12 @@ public class Machine {
         System.out.printf("$%d of money\n", moneyBalance);
     }
     public Recipe getRecipe(int recipeId) {
-        Recipe recipe = recipes.stream()
+        return recipes.stream()
                 .filter (n -> n.getId() == recipeId)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
-        return recipe;
     }
+
     public void brewCoffee(int recipeID) {
         Recipe recipe = getRecipe(recipeID);
         if (hasEnoughSupplies(recipeID)) {

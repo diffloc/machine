@@ -1,7 +1,5 @@
 package machine;
 
-import java.util.Scanner;
-
 public class CoffeeMachine {
     public static void main(String[] args) {
         // DEFAULT COFFEE MACHINE SUPPLIES
@@ -10,7 +8,6 @@ public class CoffeeMachine {
         int beans = 120;         // grams (g)
         int disposableCups = 9;  // count
         int money = 550;         // USD ($)
-        Scanner scanner = new Scanner(System.in);
         Machine machine = new Machine(water, milk, beans, disposableCups, money);
         UserInterface ui = new UserInterface(machine);
         ui.run();
