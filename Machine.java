@@ -1,6 +1,7 @@
 package machine;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Machine {
 
@@ -24,7 +25,7 @@ public class Machine {
     protected void loadRecipes() {
         // TODO: load from a CSV
         recipes = new ArrayList<>();
-        recipes.add(new Recipe(1, "espresso", 1250, 0, 16, 4));
+        recipes.add(new Recipe(1, "espresso", 250, 0, 16, 4));
         recipes.add(new Recipe(2, "latte", 350, 75, 20, 7));
         recipes.add(new Recipe(3, "cappuccino", 200, 100, 12, 6));
     }
@@ -37,49 +38,56 @@ public class Machine {
         System.out.printf("%d of disposable cups\n", cupSupply);
         System.out.printf("$%d of money\n", moneyBalance);
     }
+
     public Recipe getRecipe(int recipeId) {
         return recipes.stream()
-                .filter (n -> n.getId() == recipeId)
+                .filter(n -> n.getId() == recipeId)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }
 
     public void brewCoffee(int recipeID) {
         Recipe recipe = getRecipe(recipeID);
-        if (hasEnoughSupplies(recipeID)) {
+        List<String> missingSupplies = getMissingSupplies(recipe);
+        if (missingSupplies.isEmpty()) {
+            System.out.println("I have enough resources, making you a coffee!");
             waterSupply -= recipe.getWater();
-            moneyBalance -= recipe.getMilk();
+            milkSupply -= recipe.getMilk();
             beanSupply -= recipe.getBeans();
             cupSupply -= 1;
             moneyBalance += recipe.getCost();
-            status();
         } else {
-            System.out.println("Not enough supplies!");
-            status();
-            System.out.println("Please restock your coffee machine.");
+            System.out.printf("Sorry, not enough %s.%n", String.join(", ", missingSupplies));
         }
-
     }
-    public boolean hasEnoughSupplies(int recipeId) {
-        Recipe recipe = getRecipe(recipeId);
-        boolean enoughWater = waterSupply >= recipe.getWater();
-        boolean enoughMilk = milkSupply >= recipe.getMilk();
-        boolean enoughBeans = beanSupply >= recipe.getBeans();
-        boolean enoughCups = cupSupply >= 1;
-        return enoughWater && enoughMilk && enoughBeans && enoughCups;
 
+    public List<String> getMissingSupplies(Recipe recipe) {
+        List<String> missingSupplies = new ArrayList<>();
+        if (waterSupply < recipe.getWater()) {
+            missingSupplies.add("water");
+        }
+        if (milkSupply < recipe.getMilk()) {
+            missingSupplies.add("milk");
+        }
+        if (beanSupply < recipe.getBeans()) {
+            missingSupplies.add("coffee beans");
+        }
+        if (cupSupply < 1) {
+            missingSupplies.add("cups");
+        }
+        return missingSupplies;
     }
+
+
     public void fillSupplies(int water, int milk, int beans, int cups) {
         waterSupply += water;
         milkSupply += milk;
         beanSupply += beans;
         cupSupply += cups;
-        System.out.println();
-        status();
     }
-    public  void takeMoneyOut() {
+
+    public void takeMoneyOut() {
         System.out.println("I gave you $" + this.moneyBalance);
         this.moneyBalance = 0;
-        status();
     }
 }

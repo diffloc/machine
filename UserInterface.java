@@ -44,6 +44,7 @@ public class UserInterface {
         } while (validInput);
     }
 
+
     private void fillMenu() {
         System.out.println("\nWrite how many ml of water you want to add: ");
         int water = scanner.nextInt();
