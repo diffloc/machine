@@ -2,6 +2,8 @@ package machine;
 
 public class CoffeeMachine {
     public static void main(String[] args) {
+
+        // Stage 6/6 done!
         // DEFAULT COFFEE MACHINE SUPPLIES
         int water = 400;         // milliliters (ml)
         int milk = 540;          // milliliters (ml)
